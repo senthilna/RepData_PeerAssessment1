@@ -34,7 +34,7 @@ plot(activityintervalmean$Interval, activityintervalmean$Steps, type = "l", xlab
 axis(side=1, cex.axis=0.35)
 ```
 
-### Interval with the highest average number of steps
+### 5 minute Interval with the highest number of steps
 ```{r results="asis"}
 activityintervalmean$Interval[activityintervalmean$Steps==max(activityintervalmean$Steps)]
 ```
@@ -46,7 +46,8 @@ activityintervalmean$Interval[activityintervalmean$Steps==max(activityintervalme
 sum(is.na(activitydat$steps));
 
 ```
-
+All NA values are replaced using the average for that time interval
+  
 ### Replace all the NA values with intereval mean. Count NA values again
 ```{r results="asis"}
 activitydaymean <- aggregate(activitydat[,1], list(activitydat$date), mean, na.rm=TRUE);
@@ -84,8 +85,14 @@ axis(side=1, cex.axis=0.35)
 activitydatWE <- subset(activitydat, activitydat$weekday == "WEEKEND");
 activityintervalmeanWE <- aggregate(activitydatWE[,1], list(activitydatWE$interval), mean, na.rm=TRUE);
 names(activityintervalmeanWE) =  c("Interval","Steps");
+par(mfrow=c(1,2)) 
+
+print("Week day graph");
+plot(activityintervalmeanWD$Interval, activityintervalmeanWD$Steps, type = "l", xlab="Interval", ylab= "Steps(Average)", main="Weekday graph");
+
 print("Week end graph");
-plot(activityintervalmeanWE$Interval, activityintervalmeanWE$Steps, type = "l", xlab="Interval", ylab= "Steps(Average)");
+plot(activityintervalmeanWE$Interval, activityintervalmeanWE$Steps, type = "l", xlab="Interval", ylab= "Steps(Average)", main="Weekend graph");
+
 axis(side=1, cex.axis=0.35)
 
 ```

@@ -39,7 +39,7 @@ print(xt, type="html")
 ```
 
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Mon Jan 19 05:38:16 2015 -->
+<!-- Mon Jan 19 05:55:35 2015 -->
 <table border=1>
 <tr> <th>  </th> <th>     Stat     </th> <th>     Value     </th>  </tr>
   <tr> <td align="right"> 1 </td> <td> Mean </td> <td align="right"> 9354.23 </td> </tr>
@@ -57,7 +57,7 @@ axis(side=1, cex.axis=0.35)
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
 
-### Interval with the highest average number of steps
+### 5 minute Interval with the highest number of steps
 
 ```r
 activityintervalmean$Interval[activityintervalmean$Steps==max(activityintervalmean$Steps)]
@@ -74,7 +74,8 @@ sum(is.na(activitydat$steps));
 ```
 
 [1] 2304
-
+All NA values are replaced using the average for that time interval
+  
 ### Replace all the NA values with intereval mean. Count NA values again
 
 ```r
@@ -129,7 +130,7 @@ print(xt1, type="html")
 ```
 
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Mon Jan 19 05:38:21 2015 -->
+<!-- Mon Jan 19 05:55:38 2015 -->
 <table border=1>
 <tr> <th>  </th> <th>      Stat1     </th> <th>     Value1     </th>  </tr>
   <tr> <td align="right"> 1 </td> <td> Mean </td> <td align="right"> 10766.19 </td> </tr>
@@ -159,13 +160,24 @@ axis(side=1, cex.axis=0.35)
 activitydatWE <- subset(activitydat, activitydat$weekday == "WEEKEND");
 activityintervalmeanWE <- aggregate(activitydatWE[,1], list(activitydatWE$interval), mean, na.rm=TRUE);
 names(activityintervalmeanWE) =  c("Interval","Steps");
+par(mfrow=c(1,2)) 
+
+print("Week day graph");
+```
+
+[1] "Week day graph"
+
+```r
+plot(activityintervalmeanWD$Interval, activityintervalmeanWD$Steps, type = "l", xlab="Interval", ylab= "Steps(Average)", main="Weekday graph");
+
 print("Week end graph");
 ```
 
 [1] "Week end graph"
 
 ```r
-plot(activityintervalmeanWE$Interval, activityintervalmeanWE$Steps, type = "l", xlab="Interval", ylab= "Steps(Average)");
+plot(activityintervalmeanWE$Interval, activityintervalmeanWE$Steps, type = "l", xlab="Interval", ylab= "Steps(Average)", main="Weekend graph");
+
 axis(side=1, cex.axis=0.35)
 ```
 
